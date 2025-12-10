@@ -7,6 +7,16 @@
 import React from 'react';
 import { Product } from '../types';
 
+const translateCategory = (category: string) => {
+  const translations: { [key: string]: string } = {
+    'Audio': 'Audio',
+    'Wearable': 'Portable',
+    'Mobile': 'Mobile',
+    'Home': 'Maison'
+  };
+  return translations[category] || category;
+};
+
 interface CartDrawerProps {
   isOpen: boolean;
   onClose: () => void;
@@ -66,9 +76,9 @@ const CartDrawer: React.FC<CartDrawerProps> = ({ isOpen, onClose, items, onRemov
                   <div>
                     <div className="flex justify-between items-start">
                         <h3 className="font-serif text-[#2C2A26]">{item.name}</h3>
-                        <span className="text-sm font-light text-[#2C2A26]">${item.price}</span>
+                        <span className="text-sm font-light text-[#2C2A26]">{item.price}€</span>
                     </div>
-                    <p className="text-xs text-[#A8A29E] uppercase tracking-widest mt-1">{item.category}</p>
+                    <p className="text-xs text-[#A8A29E] uppercase tracking-widest mt-1">{translateCategory(item.category)}</p>
                   </div>
                   <button 
                     onClick={() => onRemoveItem(idx)}
@@ -86,7 +96,7 @@ const CartDrawer: React.FC<CartDrawerProps> = ({ isOpen, onClose, items, onRemov
         <div className="p-6 border-t border-[#D6D1C7] bg-[#EBE7DE]/30">
           <div className="flex justify-between items-center mb-6">
             <span className="text-sm font-medium uppercase tracking-widest text-[#5D5A53]">Sous-total</span>
-            <span className="text-xl font-serif text-[#2C2A26]">${total}</span>
+            <span className="text-xl font-serif text-[#2C2A26]">{total}€</span>
           </div>
           <p className="text-xs text-[#A8A29E] mb-6 text-center">Frais de port et taxes calculés lors du paiement.</p>
           <button 

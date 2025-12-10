@@ -8,6 +8,16 @@
 import React from 'react';
 import { Product } from '../types';
 
+const translateCategory = (category: string) => {
+  const translations: { [key: string]: string } = {
+    'Audio': 'Audio',
+    'Wearable': 'Portable',
+    'Mobile': 'Mobile',
+    'Home': 'Maison'
+  };
+  return translations[category] || category;
+};
+
 interface CheckoutProps {
   items: Product[];
   onBack: () => void;
@@ -86,7 +96,7 @@ const Checkout: React.FC<CheckoutProps> = ({ items, onBack }) => {
                     disabled
                     className="w-full py-5 bg-[#A8A29E] text-[#F5F2EB] uppercase tracking-widest text-sm font-medium cursor-not-allowed opacity-80"
                 >
-                    Payer maintenant — ${total}
+                    Payer maintenant — {total}€
                 </button>
               </div>
             </div>
@@ -105,9 +115,9 @@ const Checkout: React.FC<CheckoutProps> = ({ items, onBack }) => {
                     </div>
                     <div className="flex-1">
                        <h3 className="font-serif text-[#2C2A26] text-base">{item.name}</h3>
-                       <p className="text-xs text-[#A8A29E]">{item.category}</p>
+                       <p className="text-xs text-[#A8A29E]">{translateCategory(item.category)}</p>
                     </div>
-                    <span className="text-sm text-[#5D5A53]">${item.price}</span>
+                    <span className="text-sm text-[#5D5A53]">{item.price}€</span>
                  </div>
                ))}
             </div>
@@ -115,7 +125,7 @@ const Checkout: React.FC<CheckoutProps> = ({ items, onBack }) => {
             <div className="border-t border-[#D6D1C7] pt-6 space-y-2">
               <div className="flex justify-between text-sm text-[#5D5A53]">
                  <span>Sous-total</span>
-                 <span>${subtotal}</span>
+                 <span>{subtotal}€</span>
               </div>
               <div className="flex justify-between text-sm text-[#5D5A53]">
                  <span>Livraison</span>
@@ -127,8 +137,8 @@ const Checkout: React.FC<CheckoutProps> = ({ items, onBack }) => {
                <div className="flex justify-between items-center">
                  <span className="font-serif text-xl text-[#2C2A26]">Total</span>
                  <div className="flex items-end gap-2">
-                   <span className="text-xs text-[#A8A29E] mb-1">USD</span>
-                   <span className="font-serif text-2xl text-[#2C2A26]">${total}</span>
+                   <span className="text-xs text-[#A8A29E] mb-1">EUR</span>
+                   <span className="font-serif text-2xl text-[#2C2A26]">{total}€</span>
                  </div>
                </div>
             </div>
